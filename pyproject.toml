@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "protein-interaction-networks-graph"
+version = "0.1.0"
+description = "Serotonin pathways interaction networks"
+authors = ["Asncodes-80 <asn80.asn@hotmail.com>"]
+license = "GPL-3"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.31.0"
+networkx = "^3.2.1"
+pandas = "^2.2.0"
+numpy = "^1.26.4"
+matplotlib = "^3.8.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

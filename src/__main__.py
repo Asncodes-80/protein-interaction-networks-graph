@@ -30,13 +30,14 @@ protein_list: [str] = [
     "GABBR1",
 ]
 
-protiens = "%0d".join(protein_list)
+proteins = "%0d".join(protein_list)
+
 # Species is kind of humans = 9606
-url = f"https://string-db.org/api/tsv/network?identifiers={protiens}&species=9606"
+url = f"https://string-db.org/api/tsv/network?identifiers={proteins}&species=9606"
 r = requests.get(url)
 
 lines = r.text.split("\n")
-# # Makes component based on tabs
+# Makes component based on tabs
 data = [l.split("\t") for l in lines]
 df = pd.DataFrame(data[1:-1], columns=data[0])
 interactions = df[["preferredName_A", "preferredName_B", "score"]]
@@ -58,9 +59,9 @@ for i in range(len(interactions)):
 
 
 # Network info about edges (Interactions) and Nodes (Proteins)
-print(f"Number of nodes: {G.number_of_nodes()}")
-print(f"Number of edges: {G.number_of_edges()}")
-print(f"Average degree: {G.degree}")
+# print(f"Number of nodes: {G.number_of_nodes()}")
+# print(f"Number of edges: {G.number_of_edges()}")
+# print(f"Average degree: {G.degree}")
 
 # Graph shape of NetworkX
 pos = nx.spring_layout(G)

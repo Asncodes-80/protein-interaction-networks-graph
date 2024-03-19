@@ -1,2 +1,3 @@
-# protein-interaction-networks-graph
+# Protein Interaction Networks Graph
+
 Serotonin pathways interaction networks

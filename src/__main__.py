@@ -85,7 +85,7 @@ def draw_graph(data, proteins, option="normal", mst=False):
             T = nx.minimum_spanning_tree(G)
             pos = nx.spring_layout(T)
 
-        figure = plt.figure(figsize=(19, 6), facecolor=[0.7, 0.7, 0.7, 0.1])
+        figure = plt.figure(figsize=(19, 6))
         figure.canvas.manager.set_window_title(option + f"_{str(mst).lower()}")
 
         nx.draw_networkx(

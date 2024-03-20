@@ -2,6 +2,7 @@
 \usepackage{float}
 \usepackage{geometry}
 \usepackage{listings}
+\usepackage{pgfplots} 
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{ragged2e}
@@ -10,6 +11,7 @@
 \usepackage{subfiles}
 \usepackage{multirow}
 \usepackage{url}
+
 \newgeometry{left=1.4cm, right=1.4cm, bottom=2.0cm, top=2.0cm}
 \settextfont[Scale=1]{XB Roya}
 
@@ -251,12 +253,94 @@ other (primary) databases.} } استفاده کنیم که داده‌های آ�
 
 \subsection{نظریه \lr{Betweenness centrality} \cite{enwiki:1193904520}}
 
+\begin{equation}
+    BC(V) = \sum{u,w}\epsilon(\frac{\sigma{vw(V)}}{\sigma{vw}})
+\end{equation}
+
+\begin{itemize}
+    \item $\sigma{vw}$: مجموع تعداد کوتاه‌ترین مسیر‌ها بین نود $u$ و $w$
+    \item $\sigma{vw(V)}$: مجموع تعداد کوتاه‌ترین مسیر‌هایی که از بین $(V)$ گذر
+    می‌کند.
+\end{itemize}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/betweenness_centrality_true.png}
+    \begin{tikzpicture}
+        \node[circle,draw] (A) at (0, 3) {A};
+        \node[circle,draw] (B) at (0, 0) {B};
+        \node[circle,draw] (C) at (3, 1.5) {C};
+        \node[circle,draw] (D) at (5, 1.5) {D};
+        \node[circle,draw] (E) at (8, 3) {E};
+        \node[circle,draw] (F) at (8, 0) {F};
+        
+        \draw (A) -- (B);
+        \draw (A) -- (C);
+        \draw (B) -- (C);
+        \draw (C) -- (D);
+        \draw (D) -- (E);
+        \draw (D) -- (F);
+        \draw (E) -- (F);
+    \end{tikzpicture}
+\end{figure}
+
+\subsubsection*{مقدار BC را برای راس \lr{C} به شکل زیر مشخص می‌کنیم.}
+
+\begin{equation}
+(A,B) = \sigma_{A,B} \rightarrow 1, (A,B) = \sigma_{A,B(C)} \rightarrow 0, (\sigma_{A,B(C)}/\sigma_{A,B}) = 0/1 \rightarrow 0
+\end{equation}
+
+\begin{equation}
+(A,D) = \sigma_{A,D} \rightarrow 1, (A,D) = \sigma_{A,D(C)} \rightarrow 1, (\sigma_{A,D(C)}/\sigma_{A,D}) = 1/1 \rightarrow 1
+\end{equation}
+
+\begin{equation}
+(A,E) = \sigma_{A,E} \rightarrow 1, (A,E) = \sigma_{A,E(C)} \rightarrow 1, (\sigma_{A,E(C)}/\sigma_{A,E}) = 1/1 \rightarrow 1
+\end{equation}
+
+\begin{equation}
+(A,F) = \sigma_{A,F} \rightarrow 1, (A,F) = \sigma_{A,F(C)} \rightarrow 1, (\sigma_{A,F(C)}/\sigma_{A,F}) = 1/1 \rightarrow 1
+\end{equation}
+
+\begin{equation}
+(B,D) = \sigma_{B,D} \rightarrow 1, (B,D) = \sigma_{B,D(C)} \rightarrow 1, (\sigma_{B,D(C)}/\sigma_{B,D}) = 1/1 \rightarrow 1
+\end{equation}
+
+\begin{equation}
+(B,E) = \sigma_{B,E} \rightarrow 1, (B,E) = \sigma_{B,E(C)} \rightarrow 1, (\sigma_{B,E(C)}/\sigma_{B,E}) = 1/1 \rightarrow 1
+\end{equation}
+
+\begin{equation}
+(B,F) = \sigma_{B,F} \rightarrow 1, (B,F) = \sigma_{B,F(C)} \rightarrow 1, (\sigma_{B,F(C)}/\sigma_{B,F}) = 1/1 \rightarrow 1
+\end{equation}
+
+\begin{equation}
+(E,F) = \sigma_{E,F} \rightarrow 1, (E,F) = \sigma_{E,F(C)} \rightarrow 0, (\sigma_{E,F(C)}/\sigma_{B,F}) = 0/1 \rightarrow 0
+\end{equation}
+
+\begin{equation}
+(D,E) = \sigma_{D,E} \rightarrow 1, (D,E) = \sigma_{D,E(C)} \rightarrow 0, (\sigma_{D,E(C)}/\sigma_{D,E}) = 0/1 \rightarrow 0
+\end{equation}
+
+مقدار \lr{Betweenness centrality} براساس راس \lr{C} برابر با ۶ است.
+
+به دلیل آنکه \lr{C} و \lr{D} با یکدیگر در یک راستا و سطح گراف هستند پس مقدار راس
+\lr{D} هم مانند راس \lr{C} برابر با ۶ می‌باشد.
+
+تمامی گوشه‌های گراف مقدار \lr{BC} آنها برابر با ۰ می‌باشد.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/betweenness_centrality_false.png}
     \caption{گراف \lr{Betweenness centrality}}
     \label{fig: bc_mst_off}
 \end{figure}
+
+از \lr{Degree} و \lr{BC} هر کدام از پروتئین‌ها را استفاده می‌کنیم که دو پارامتر
+رنگ و اندازه را از طریق وزن یال‌ها بدست آوریم.
+
+رنگ‌ها از بنفش پررنگ شروع می‌شود تا زرد روشن. هر چقدر یک پروتئین زرد‌تر باشد
+درجه بیشتری را دارا می‌باشد. بزرگ‌ترین پروتئین بیشترین \lr{BC} را بین
+پروتئین‌های دیگر دارد.
 
 \subsection{نظریه \lr{Minimum Spanning Tree} \cite{enwiki:1213233694}}
 
@@ -265,7 +349,7 @@ other (primary) databases.} } استفاده کنیم که داده‌های آ�
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/betweenness_centrality_false.png}
+    \includegraphics[width=0.9\textwidth]{images/betweenness_centrality_true.png}
     \caption{بهینه‌سازی گراف با \lr{mst}}
     \label{fig: bc_mst_on}
 \end{figure}

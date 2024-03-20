@@ -1,0 +1,24 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Serotonin Pathways Interaction Networks
+message: 'If you use this software, please cite it as below.'
+type: software
+authors:
+  - family-names: Soltani Neshan
+    given-names: Alireza
+    name-particle: asn
+    email: a.soltani@iau-tnb.ac.ir
+    affiliation: Islamic Azad University North Tehran Branch
+    orcid: 'https://orcid.org/0009-0007-9085-7137'
+repository-code: >-
+  https://github.com/Asncodes-80/protein-interaction-networks-graph
+abstract: Serotonin pathways interaction networks
+keywords:
+  - proteins
+  - python
+  - graph
+  - Betweenness centrality
+  - Centrality
+license: GPL-3.0

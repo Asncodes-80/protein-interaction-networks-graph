@@ -7,6 +7,7 @@ __pycache__/
 *.bbl
 *.blg
 *.out
+*.toc
 
 # C extensions
 *.so
